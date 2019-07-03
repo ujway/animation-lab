@@ -1,26 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl"
+
+import Config from './config'
+const { accessToken } = Config
+
+const Map = ReactMapboxGl({
+  accessToken: accessToken,
+});
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Map
+        style="mapbox://styles/mapbox/streets-v11"
+        containerStyle={{
+          height: "100vh",
+          width: "100vw"
+        }}>
+        <Layer
+          type="symbol"
+          id="marker"
+          // layout={{ "icon-image": "marker-15" }}
+        >
+          <Feature coordinates={[-0.481747846041145, 51.3233379650232]}/>
+        </Layer>
+      </Map>
     );
   }
 }
